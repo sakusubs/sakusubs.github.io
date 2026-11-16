@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <rect width="800" height="450" fill="#2A2C2F"/>
+  <circle cx="400" cy="200" r="38" fill="#FF5623" opacity="0.22"/>
+  <text x="400" y="210" font-family="sans-serif" font-size="30" font-weight="bold" fill="#FF5623" text-anchor="middle">櫻</text>
+  <text x="400" y="268" font-family="sans-serif" font-size="18" fill="#B3ABA3" text-anchor="middle">Preview Gambar Belum Tersedia</text>
+</svg>
