@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ post.title }} — {{ site_name }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css', v='3') }}" />
+  <script>
+    const savedTheme = localStorage.getItem("sakura_theme") || "light";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+  </script>
+</head>
+<body>
+
+  <!-- Header: Logo Tunggal Kiri + Search & Mode Gelap/Terang Kanan -->
+  <header class="site-header">
+    <div class="container header-top">
+      <a href="{{ url_for('index') }}" class="brand">
+        <img src="{{ url_for('static', filename='img/logo.webp') }}" alt="{{ site_name }}" class="brand-logo-img" />
+      </a>
+
+      <div class="header-actions">
+        <button type="button" class="icon-circle-btn" onclick="toggleHeaderSearch()" aria-label="Cari Konten" title="Cari">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+
+        <button type="button" class="icon-circle-btn" onclick="toggleTheme()" aria-label="Ganti Mode Gelap atau Terang" title="Mode Gelap / Terang">
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container detail-container">
+    <article class="detail-box">
+      <div class="post-editorial-header">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="{{ url_for('index') }}">Home</a>
+          <span class="crumb-sep">›</span>
+          <a href="{{ url_for('index', category=post.category) }}">{{ post.category }}</a>
+          <span class="crumb-sep">›</span>
+          <span class="crumb-current">{{ post.title }}</span>
+        </nav>
+
+        <h1 class="editorial-title">{{ post.title }}</h1>
+        {% if post.jp_title %}
+          <p class="detail-jp">{{ post.jp_title }}</p>
+        {% endif %}
+
+        <div class="editorial-meta-bar">
+          <div class="author-block">
+            <div class="author-avatar">櫻</div>
+            <div class="author-details">
+              <span class="author-name">{{ post.author or default_author }}</span>
+              <div class="author-sub-meta">
+                <span>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  {{ post.date }}
+                </span>
+                <span>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  {{ post.duration }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="header-quick-actions">
+            <a href="#comments" class="quick-action-btn" aria-label="Ke Kolom Komentar" title="Komentar">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </a>
+            <button type="button" class="quick-action-btn" onclick="shareNative()" aria-label="Bagikan Postingan" title="Bagikan">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="media-preview">
+        <img 
+          src="{{ post.thumbnail }}" 
+          alt="{{ post.title }}" 
+          class="detail-cover"
+          onerror="this.onerror=null;this.src='{{ url_for('static', filename='img/placeholder.svg') }}';"
+        />
+      </div>
+
+      <div class="detail-content">
+        <h3>Sinopsis Acara</h3>
+        <p>{{ post.synopsis }}</p>
+
+        {% if post.translator_note %}
+          <div class="tn-box">
+            <strong>Catatan Penerjemah:</strong>
+            <p>{{ post.translator_note }}</p>
+          </div>
+        {% endif %}
+
+        {% if post.screenshots %}
+          <div class="screenshot-section">
+            <h3>Cuplikan Adegan & Preview Subtitle</h3>
+            <p class="screenshot-hint">Ketuk gambar untuk memperbesar tampilan.</p>
+            <div class="screenshot-grid">
+              {% for img_path in post.screenshots %}
+                <button type="button" class="screenshot-item" onclick="openImgModal('{{ img_path }}')">
+                  <img 
+                    src="{{ img_path }}" 
+                    alt="Cuplikan {{ post.title }}" 
+                    loading="lazy"
+                    onerror="this.onerror=null;this.src='{{ url_for('static', filename='img/placeholder.svg') }}';"
+                  />
+                </button>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+
+        <div class="download-section">
+          <h3>Tautan Unduhan (Download)</h3>
+          <div class="link-list">
+            {% for item in post.links %}
+              <a href="{{ item.url }}" target="_blank" rel="noopener noreferrer" class="btn-download">
+                {{ item.label }} ↗
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="detail-tags">
+          {% for tag in post.tags %}
+            <a href="{{ url_for('index', tag=tag) }}" class="tag-chip">#{{ tag }}</a>
+          {% endfor %}
+        </div>
+
+        <div class="action-footer">
+          <div class="trakteer-box">
+            <div class="trakteer-text">
+              <strong>Suka dengan garapan sub ini?</strong>
+              <span>Bantu dukung biar makin semangat ngesub episode berikutnya.</span>
+            </div>
+            <a href="{{ trakteer_url }}" target="_blank" rel="noopener noreferrer" class="btn-trakteer">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+              <span>Traktir Kopi</span>
+            </a>
+          </div>
+
+          <div class="share-section">
+            <span class="share-title">Bagikan rilisan ini:</span>
+            <div class="share-icons">
+              <button type="button" class="social-icon-btn wa" onclick="shareTo('whatsapp')" aria-label="Bagikan ke WhatsApp" title="WhatsApp">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zM12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2.546 20.2c-.151.512.321.984.833.833l3.032-.892A9.953 9.953 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+              </button>
+
+              <button type="button" class="social-icon-btn x" onclick="shareTo('x')" aria-label="Bagikan ke X" title="X (Twitter)">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </button>
+
+              <button type="button" class="social-icon-btn fb" onclick="shareTo('facebook')" aria-label="Bagikan ke Facebook" title="Facebook">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+              </button>
+
+              <button type="button" class="social-icon-btn tiktok" onclick="shareNative()" aria-label="Bagikan ke TikTok atau Aplikasi Lain" title="TikTok / Lainnya">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+              </button>
+
+              <button type="button" class="social-icon-btn copy" onclick="copyPostLink()" aria-label="Salin Tautan" title="Salin Link">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              </button>
+            </div>
+            <span id="copy-feedback" class="copy-feedback" aria-live="polite"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigasi < OLDER | NEWER > -->
+      {% if older_post or newer_post %}
+        <nav class="older-newer-nav" aria-label="Navigasi Postingan">
+          <div class="on-col left">
+            {% if older_post %}
+              <a href="{{ url_for('detail', slug=older_post.slug) }}" class="on-link">
+                <span class="on-label">‹ OLDER</span>
+                <span class="on-title">{{ older_post.title }}</span>
+              </a>
+            {% else %}
+              <div class="on-link disabled">
+                <span class="on-label">‹ OLDER</span>
+                <span class="on-title muted">Tidak ada rilisan lebih lama</span>
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="on-col right">
+            {% if newer_post %}
+              <a href="{{ url_for('detail', slug=newer_post.slug) }}" class="on-link">
+                <span class="on-label">NEWER ›</span>
+                <span class="on-title">{{ newer_post.title }}</span>
+              </a>
+            {% else %}
+              <div class="on-link disabled">
+                <span class="on-label">NEWER ›</span>
+                <span class="on-title muted">Sudah rilisan terbaru</span>
+              </div>
+            {% endif %}
+          </div>
+        </nav>
+      {% endif %}
+    </article>
+
+    {% if related_posts %}
+      <section class="related-section">
+        <div class="section-head">
+          <h3>Mungkin Kamu Suka</h3>
+          <span>Rilisan terkait & serupa</span>
+        </div>
+        <div class="related-grid">
+          {% for rel in related_posts %}
+            <a href="{{ url_for('detail', slug=rel.slug) }}" class="related-card">
+              <div class="related-thumb">
+                <img 
+                  src="{{ rel.thumbnail }}" 
+                  alt="{{ rel.title }}" 
+                  loading="lazy"
+                  onerror="this.onerror=null;this.src='{{ url_for('static', filename='img/placeholder.svg') }}';"
+                />
+              </div>
+              <div class="related-body">
+                <span class="related-cat">{{ rel.category }} • {{ rel.date }}</span>
+                <h4>{{ rel.title }}</h4>
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+
+    <!-- Kolom Komentar & Feedback (Giscus) -->
+    <section id="comments" class="comment-section">
+      <h3>Komentar & Feedback Sub</h3>
+      <p class="comment-hint">
+        Ada typo, timing geser, atau request acara berikutnya? Tulis di bawah menggunakan akun GitHub.
+      </p>
+
+      {% if giscus_repo_id and giscus_category_id %}
+        <div class="giscus-wrapper" id="giscus-container">
+          <script>
+            (function() {
+              const currentTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "dark_dimmed" : "light";
+              const script = document.createElement("script");
+              script.src = "https://giscus.app/client.js";
+              script.setAttribute("data-repo", "{{ giscus_repo }}");
+              script.setAttribute("data-repo-id", "{{ giscus_repo_id }}");
+              script.setAttribute("data-category", "{{ giscus_category }}");
+              script.setAttribute("data-category-id", "{{ giscus_category_id }}");
+              script.setAttribute("data-mapping", "pathname");
+              script.setAttribute("data-strict", "0");
+              script.setAttribute("data-reactions-enabled", "1");
+              script.setAttribute("data-emit-metadata", "0");
+              script.setAttribute("data-input-position", "top");
+              script.setAttribute("data-theme", currentTheme);
+              script.setAttribute("data-lang", "id");
+              script.setAttribute("crossorigin", "anonymous");
+              script.async = true;
+              document.getElementById("giscus-container").appendChild(script);
+            })();
+          </script>
+        </div>
+      {% else %}
+        <div class="giscus-placeholder">
+          <strong>Kolom Komentar Siap Diaktifkan</strong>
+          <p>Setelah repositori diunggah ke GitHub, ambil <code>repo-id</code> &amp; <code>category-id</code> di <strong>giscus.app</strong> lalu masukkan ke bagian atas file <code>app.py</code>.</p>
+        </div>
+      {% endif %}
+    </section>
+  </main>
+
+  <div id="img-modal" class="img-modal" onclick="closeImgModal()">
+    <span class="img-modal-close">&times;</span>
+    <img id="img-modal-content" src="" alt="Preview Cuplikan" />
+  </div>
+
+  <!-- Tombol Top & Tombol Kategori Melayang di Kiri -->
+  <button type="button" id="btn-back-top" class="floating-top-btn" onclick="scrollToTop()" aria-label="Kembali ke Atas" title="Kembali ke Atas">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <button type="button" class="floating-nav-btn" onclick="openDrawer()" aria-label="Kategori" title="Kategori">
+    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+  </button>
+
+  <!-- Slide Drawer dari Kiri -->
+  <div id="drawer-backdrop" class="drawer-backdrop" onclick="closeDrawer()"></div>
+  <aside id="nav-drawer" class="nav-drawer left-drawer" aria-hidden="true">
+    <div class="drawer-header">
+      <div>
+        <h3>Kategori</h3>
+        <p>Cari & jelajahi arsip {{ site_name }}</p>
+      </div>
+      <button type="button" class="drawer-close" onclick="closeDrawer()" aria-label="Tutup">&times;</button>
+    </div>
+
+    <div class="drawer-body">
+      <div class="drawer-search-box">
+        <form action="{{ url_for('index') }}" method="GET" class="drawer-search-form">
+          <input type="text" name="q" value="{{ search_query or '' }}" placeholder="Cari acara, member, episode..." aria-label="Cari di menu" />
+          <button type="submit" aria-label="Cari">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </button>
+        </form>
+      </div>
+
+      <div class="drawer-group">
+        <span class="drawer-label">Semua Konten</span>
+        <a href="{{ url_for('index') }}" class="drawer-item ">
+          <span class="drawer-item-left">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span>Semua Rilisan</span>
+          </span>
+          <span class="drawer-count">{{ total_posts }}</span>
+        </a>
+      </div>
+
+      <div class="drawer-group">
+        <span class="drawer-label">Kategori Acara</span>
+        {% for cat, count in nav_categories %}
+          <a href="{{ url_for('index', category=cat) }}" class="drawer-item {% if post.category == cat %}active{% endif %}">
+            <span>{{ cat }}</span>
+            <span class="drawer-count">{{ count }}</span>
+          </a>
+        {% endfor %}
+      </div>
+
+      <div class="drawer-group">
+        <span class="drawer-label">Berdasarkan Tag</span>
+        <div class="drawer-tags">
+          {% for tag in nav_tags %}
+            <a href="{{ url_for('index', tag=tag) }}" class="tag-chip ">#{{ tag }}</a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Footer Lengkap -->
+  <footer class="rich-footer">
+    <div class="footer-upper">
+      <div class="container footer-upper-inner">
+        <p class="footer-made">Dibuat dengan butiran <span class="sakura-flower">🌸</span> oleh</p>
+
+        <a href="{{ url_for('index') }}" class="footer-brand-logo">
+          <img src="{{ url_for('static', filename='img/logo.webp') }}" alt="{{ site_name }}" class="footer-logo-img" />
+        </a>
+
+        <p class="footer-desc">
+          Sekumpulan subber yang menyukai kelopak sakura. Semoga setiap singgah terasa hangat seperti cerita yang diterjemahkan perlahan.
+        </p>
+
+        <div class="footer-socials">
+          <a href="{{ x_url }}" target="_blank" rel="noopener noreferrer" class="footer-soc-btn" aria-label="X (Twitter)" title="X (Twitter)">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="{{ youtube_url }}" target="_blank" rel="noopener noreferrer" class="footer-soc-btn yt" aria-label="YouTube" title="YouTube">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+        </div>
+
+        <div class="footer-support-block">
+          <h4>Dukung kami di Trakteer</h4>
+          <a href="{{ trakteer_url }}" target="_blank" rel="noopener noreferrer" class="footer-trakteer-link">
+            <span>➡</span>
+            <span>Trakteer {{ site_name }}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom-bar">
+      <div class="container">
+        <nav class="footer-nav-links" aria-label="Navigasi Footer">
+          <a href="{{ url_for('index') }}">Home</a>
+          <a href="{{ url_for('tentang') }}">Di Balik {{ site_name }}</a>
+          <a href="{{ url_for('cara_download') }}">Cara Download</a>
+          <a href="{{ url_for('disclaimer') }}">Disclaimer</a>
+        </nav>
+        <p class="footer-copy">© 2026 {{ site_name }} | Beroperasi sejak {{ since_year }}</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/main.js', v='3') }}"></script>
+</body>
+</html>
