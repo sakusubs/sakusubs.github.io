@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mengarahkan ke Link Download... — SakuSubs</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        body {
+            background-color: #121212;
+            color: #f5f2eb;
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            padding: 20px;
+        }
+        .box {
+            background: #1e1e1e;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #2e2a24;
+            max-width: 400px;
+            width: 100%;
+        }
+        a.btn {
+            display: inline-block;
+            margin-top: 15px;
+            background: #DD8C96;
+            color: #121212;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #333;
+            border-top: 4px solid #DD8C96;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="spinner"></div>
+        <h2>Menyiapkan Tautan...</h2>
+        <p style="color: #aaa; font-size: 0.9rem;">Kamu sedang diarahkan keluar menuju link unduhan aman.</p>
+        <p>Jika halaman tidak otomatis berpindah dalam 3 detik, ketuk tombol di bawah:</p>
+        <a id="targetLink" href="#" class="btn">Lanjutkan Download</a>
+    </div>
+
+    <script>
+        // Mengambil parameter URL, contoh: /go.html?to=https://pixeldrain.com/u/xxxx
+        const urlParams = new URLSearchParams(window.location.search);
+        let targetUrl = urlParams.get('to');
+
+        if (targetUrl) {
+            // Decode URL kalau di-encode
+            targetUrl = decodeURIComponent(targetUrl);
+            
+            document.getElementById('targetLink').href = targetUrl;
+            
+            // Auto redirect setelah 1.5 detik
+            setTimeout(function() {
+                window.location.replace(targetUrl);
+            }, 1500);
+        } else {
+            document.querySelector('.box').innerHTML = "<h3>Link tidak valid atau kosong!</h3><p style='color:#aaa;'>Silakan kembali ke halaman utama.</p>";
+        }
+    </script>
+</body>
+</html>
