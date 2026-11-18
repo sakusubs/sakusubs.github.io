@@ -57,6 +57,8 @@ def build():
         # Halaman Tentang & Cara Download sudah dihapus dari sini
         save_page(client, "/disclaimer", os.path.join("disclaimer", "index.html"), base_path)
 
+        save_page(client, "/go", os.path.join("go", "index.html"), base_path)
+        
         posts = load_posts()
         for post in posts:
             slug = post["slug"]
