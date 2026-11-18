@@ -54,8 +54,7 @@ def build():
 
     with app.test_client() as client:
         save_page(client, "/", "index.html", base_path)
-        save_page(client, "/tentang", os.path.join("tentang", "index.html"), base_path)
-        save_page(client, "/cara-download", os.path.join("cara-download", "index.html"), base_path)
+        # Halaman Tentang & Cara Download sudah dihapus dari sini
         save_page(client, "/disclaimer", os.path.join("disclaimer", "index.html"), base_path)
 
         posts = load_posts()
