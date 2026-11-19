@@ -153,7 +153,10 @@ def cara_download():
 def disclaimer():
     return render_template("disclaimer.html")
 
-
+@app.route("/go")
+def go_redirect():
+    return render_template("go.html")
+    
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     debug_mode = os.environ.get("FLASK_DEBUG", "0") == "1"
