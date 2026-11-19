@@ -1,7 +1,7 @@
 [
   {
-    "slug": "soko-magattara-sakurazaka-ep-215",
-    "title": "[Sub Indo] Sakura Meets Ep.173",
+    "slug": "sakura-meets-ep172-subindo",
+    "title": "[Sub Indo] Sakura Meets Ep.172",
     "jp_title": "",
     "category": "Sakura Meets",
     "author": "SakuSubs",
@@ -9,8 +9,7 @@
     "duration": "20 Menit",
     "thumbnail": "/static/img/placeholder.svg",
     "screenshots": [
-      "/static/img/placeholder.svg",
-      "/static/img/placeholder.svg"
+      "/static/img/sakumeet172thumb.webp"
     ],
     "synopsis": "Episode kali ini adalah episode pertama di luar ruangan. Para member dipandu host untuk berkeliling ke daerah terkenal di Tokyo. Ada Quiz Pengetahuan Umum juga.",
     "translator_note": "",
@@ -25,8 +24,8 @@
         "url": "https://drive.google.com"
       },
       {
-        "label": "Download Hardsub 1080p — Pixeldrain",
-        "url": "https://pixeldrain.com"
+        "label": "Download Hardsub",
+        "url": "/go?to=https://rentry.co/sakumeets172"
       }
     ]
   },
