@@ -238,33 +238,29 @@
     {% endif %}
 
     <!-- Kolom Komentar & Feedback (Giscus) -->
+        <!-- Kolom Komentar & Feedback (Disqus) -->
     <section id="comments" class="comment-section">
       <h3>Komentar & Feedback Sub</h3>
       <p class="comment-hint">
-        Ada typo, timing geser, atau request acara berikutnya? Tulis di bawah menggunakan akun GitHub.
+        Ada typo, timing geser, atau request acara berikutnya? Tulis komentar di bawah (bisa langsung isi nama sebagai tamu tanpa login).
       </p>
 
       <div id="disqus_thread"></div>
-<script>
-  var disqus_config = function () {
-    this.page.url = window.location.href;
-    this.page.identifier = "{{ post.slug }}";
-  };
-  (function() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://sakusubs.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Aktifkan JavaScript untuk melihat komentar Disqus.</noscript>
-
-        <div class="giscus-placeholder">
-          <strong>Kolom Komentar Siap Diaktifkan</strong>
-          <p>Setelah repositori diunggah ke GitHub, ambil <code>repo-id</code> &amp; <code>category-id</code> di <strong>giscus.app</strong> lalu masukkan ke bagian atas file <code>app.py</code>.</p>
-        </div>
-      {% endif %}
+      <script>
+        var disqus_config = function () {
+          this.page.url = window.location.href;
+          this.page.identifier = "{{ post.slug }}";
+        };
+        (function() {
+          var d = document, s = d.createElement('script');
+          s.src = 'https://sakusubs.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+      <noscript>Aktifkan JavaScript untuk melihat komentar Disqus.</noscript>
     </section>
+
   </main>
 
   <div id="img-modal" class="img-modal" onclick="closeImgModal()">
