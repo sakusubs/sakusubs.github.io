@@ -17,10 +17,10 @@ X_URL = "https://x.com"
 YOUTUBE_URL = "https://youtube.com"
 
 # Pengaturan Komentar Giscus (Isi setelah repo GitHub dibuat)
-GISCUS_REPO = "USERNAME_GITHUB/NAMA_REPO"
-GISCUS_REPO_ID = ""
+GISCUS_REPO = "sakusubs/sakusubs.github.io"
+GISCUS_REPO_ID = "R_kgDOVwWaow"
 GISCUS_CATEGORY = "General"
-GISCUS_CATEGORY_ID = ""
+GISCUS_CATEGORY_ID = "DIC_kwDOVwWao84DLf9P"
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_FILE = os.path.join(BASE_DIR, "data", "posts.json")
