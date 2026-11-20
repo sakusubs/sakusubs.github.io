@@ -210,10 +210,11 @@ img {
 
 .hero-slider {
   position: relative;
+  width: 100%;
+  margin: 0 auto;
   border-radius: 14px;
   overflow: hidden;
   aspect-ratio: 16 / 9;
-  max-height: 440px;
   background-color: #2A2C2F;
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
