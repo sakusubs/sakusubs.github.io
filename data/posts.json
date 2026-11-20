@@ -1,5 +1,34 @@
 [
   {
+    "slug": "sakura-meets-ep173-subindo",
+    "title": "[Sub Indo] Sakura Meets Ep.173",
+    "jp_title": "",
+    "category": "Sakura Meets",
+    "author": "SakuSubs",
+    "date": "20 Nov 2026",
+    "duration": "21 Menit",
+    "thumbnail": "/static/img/thumbsakumeet173.webp",
+    "screenshots": [
+      "/static/img/sakumeet173prev.webp",
+      "/static/img/sakumeet173prev2.webp"
+    ],
+    "synopsis": "Episode kali adalah lanjutan episode kemarin, masih seputar Quiz diluar ruangan.",
+    "translator_note": "",
+    "tags": [
+      "Sakura Meets"
+    ],
+    "links": [
+      {
+        "label": "Download Softsub (.ASS)",
+        "url": ""
+      },
+      {
+        "label": "Download Hardsub",
+        "url": "/go?to=https://rentry.co/sakumeets173subindo"
+      }
+    ]
+  },
+  {
     "slug": "sakura-meets-ep172-subindo",
     "title": "[Sub Indo] Sakura Meets Ep.172",
     "jp_title": "",
